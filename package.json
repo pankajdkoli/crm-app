@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/pankajdkoli/crm-app#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^7.1.1",
+    "nodemon": "^2.0.22"
   }
 }
