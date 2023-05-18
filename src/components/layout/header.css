@@ -4,7 +4,14 @@ Navbar.css body {
   font-family: "Open Sans", sans-serif;
   color: #333333;
 }
-
+body {
+  background: #8a69ad;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+}
 .header {
   display: flex;
   justify-content: space-between;
