@@ -3,7 +3,7 @@ import "./header.css";
 function Header() {
   return (
     <header className="header">
-      <div className="logo">Logo</div>
+      <div className="logo">CRM-App-Logo</div>
       <nav>
         <ul className="menu">
           <li>
@@ -13,10 +13,10 @@ function Header() {
             <a href="#contact">Contact</a>
           </li>
           <li>
-            <a href="#about">LogIn</a>
+            <a href="#about">Sing-Up</a>
           </li>
           <li>
-            <a href="#services">SingIn</a>
+            <a href="#services">Admin</a>
           </li>
         </ul>
       </nav>
