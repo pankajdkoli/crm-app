@@ -1,69 +1,50 @@
 import React, { useState } from "react";
-import "./signUp.css"; // Import your custom CSS file
-import Captcha from "./Captcha";
+import LogIn from "./LogIn";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "./signUp.css"; // Import your custom CSS file
 
 function SignUp() {
   const [isSignUpActive, setSignUpActive] = useState(false);
+  const [registrationMessage, setRegistrationMessage] = useState("");
+
+  const handleSignUpClick = () => setSignUpActive(true);
+  const handleSignInClick = () => setSignUpActive(false);
+  const handleChange = (e, setState) => setState(e.target.value);
+
+  const navigate = useNavigate(); // Access the history object for navigation
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [registrationMessage, setRegistrationMessage] = useState("");
-
-  const handleSignUpClick = () => {
-    setSignUpActive(true);
-  };
-
-  const handleSignInClick = () => {
-    setSignUpActive(false);
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a payload object with the user registration data
-    const payload = {
-      name,
-      email,
-      password,
-    };
+    const payload = { name, email, password };
 
     try {
-      // Send a POST request to the registration API endpoint
       const response = await axios.post(
         "http://localhost:3001/auth/register",
         payload
       );
       if (response && response.data) {
         console.log("Registration successful:", response.data);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setRegistrationMessage("Registration successful! You can now sign in.");
+
+        // Redirect to the sign-in page after successful registration
+        navigate("/login");
       } else {
         console.log("Registration failed: No response data");
         throw new Error("Registration failed");
       }
-
-      // Clear the input fields and display success message
-      setName("");
-      setEmail("");
-      setPassword("");
-      setRegistrationMessage("Registration successful! You can now sign in.");
     } catch (error) {
       console.log("Registration failed:", error.message);
-
-      // Display error message
       setRegistrationMessage(
-        "Registration failed. Please check your details and try again."
+        "Registration failed. You're Email Allready used..!"
       );
     }
   };
@@ -92,49 +73,33 @@ function SignUp() {
               type="text"
               placeholder="Name"
               value={name}
-              onChange={handleNameChange}
+              onChange={(e) => handleChange(e, setName)}
               required
             />
             <input
               type="email"
               placeholder="Email"
               value={email}
-              onChange={handleEmailChange}
+              onChange={(e) => handleChange(e, setEmail)}
               required
             />
             <input
               type="password"
               placeholder="Password"
               value={password}
-              onChange={handlePasswordChange}
+              onChange={(e) => handleChange(e, setPassword)}
               required
             />
             <button>Sign Up</button>
-            <p>{registrationMessage}</p>
+            <p
+              className={`message ${registrationMessage ? "success" : "error"}`}
+            >
+              {registrationMessage}
+            </p>
           </form>
         </div>
         <div className="form-container sign-in-container">
-          <form onSubmit={handleFormSubmit}>
-            <h1>Sign in</h1>
-            <div className="social-container">
-              <a href="/" className="social">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="/" className="social">
-                <i className="fab fa-google-plus-g"></i>
-              </a>
-              <a href="/" className="social">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-            <span>or use your account</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <Captcha />
-
-            <a href="/">Forgot your password?</a>
-            <button type="submit">Sign In</button>
-          </form>
+          <LogIn />
         </div>
         <div className="overlay-container">
           <div className="overlay">

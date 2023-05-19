@@ -3,9 +3,11 @@
 * {
   box-sizing: border-box;
 }
-
+.message {
+  color: #ff416c;
+}
 body {
-  background: #77618d;
+  background: #8a7c98;
   display: flex;
   justify-content: center;
   align-items: center;
