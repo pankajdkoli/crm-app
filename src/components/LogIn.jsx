@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import "./signUp.css"; // Import your custom CSS file
 import axios from "axios";
+import "./signUp.css"; // Import your custom CSS file
+import { useNavigate } from "react-router-dom";
 
 function LogIn() {
   const [captchaNumber, setCaptchaNumber] = useState(getRandomCaptchaNumber());
   const [captchaInput, setCaptchaInput] = useState("");
-  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
   const [signInMessage, setSignInMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [captchaInputError, setCaptchaInputError] = useState(false);
+
+  const navigate = useNavigate(); // Access the history object for navigation
 
   // Function to handle email change
   const handleEmailChange = (e) => {
@@ -43,6 +48,9 @@ function LogIn() {
         setEmail("");
         setPassword("");
         setSignInMessage("Login successful!");
+
+        // Redirect to the sign-in page after successful registration
+        navigate("/userlist");
       } else {
         console.log("Login failed: No response data");
         throw new Error("Login failed");
@@ -61,12 +69,11 @@ function LogIn() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (captchaVerified) {
+    if (isCaptchaVerified) {
       // CAPTCHA verification succeeded
       // Proceed with the form submission
       console.log("Form submitted successfully");
     } else {
-      // CAPTCHA verification failed
       // Display an error message or take appropriate action
       console.log("CAPTCHA verification failed");
     }
@@ -83,16 +90,19 @@ function LogIn() {
 
   const verifyCaptcha = () => {
     if (captchaInput === captchaNumber.toString()) {
-      setCaptchaVerified(true);
+      setIsCaptchaVerified(true);
+      setCaptchaInputError(false);
       console.log("CAPTCHA verification succeeded");
     } else {
-      setCaptchaVerified(false);
+      setIsCaptchaVerified(false);
+      setCaptchaInputError(true);
       console.log("CAPTCHA verification failed");
     }
   };
 
   return (
     <>
+      <br></br>
       <form onSubmit={handleSignInFormSubmit}>
         <h1>Sign in</h1>
         <div className="social-container">
@@ -125,28 +135,39 @@ function LogIn() {
         <input
           type="text"
           placeholder="Enter CAPTCHA"
-          className={`captcha-input ${captchaVerified ? "verified" : ""}`}
+          className={`captcha-input ${captchaInputError ? "error" : ""} ${
+            isCaptchaVerified ? "success" : ""
+          }`}
           value={captchaInput}
           onChange={handleCaptchaInputChange}
         />
+
         <span className="captcha-number">CAPTCHA: {captchaNumber}</span>
-        <button type="button" onClick={verifyCaptcha}>
-          Verify CAPTCHA
+        <button
+          type="button"
+          onClick={verifyCaptcha}
+          disabled={isCaptchaVerified}
+        >
+          {isCaptchaVerified ? "Verified" : "Verify CAPTCHA"}
         </button>
-        <a href="/">Forgot your password?</a>
+        <br />
+        <span className={`message ${signInMessage ? "success" : "error"}`}>
+          {signInMessage}
+        </span>
 
         <button
           type="submit"
-          disabled={!captchaVerified}
+          disabled={!isCaptchaVerified}
           onSubmit={handleFormSubmit}
         >
           Sign In
         </button>
 
         {/* <button type="submit">Sign In</button> */}
-        <p className={`message ${signInMessage ? "success" : "error"}`}>
+        {/* <p className={`message ${signInMessage ? "success" : "error"}`}>
           {signInMessage}
-        </p>
+        </p> */}
+        {/* <p className="captcha-message">{captchaMessage}</p> */}
       </form>
     </>
   );
