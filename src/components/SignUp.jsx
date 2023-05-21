@@ -51,6 +51,7 @@ function SignUp() {
 
   return (
     <>
+      <br></br>
       <div
         className={`container ${isSignUpActive ? "right-panel-active" : ""}`}
       >

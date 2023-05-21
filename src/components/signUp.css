@@ -3,9 +3,21 @@
 * {
   box-sizing: border-box;
 }
+
 .message {
   color: #ff416c;
 }
+
+.captcha-input.error {
+  border: 2px solid red;
+  color: red;
+}
+
+.captcha-input.success {
+  border: 2px solid green;
+  color: green;
+}
+
 body {
   background: #8a7c98;
   display: flex;
@@ -13,6 +25,7 @@ body {
   align-items: center;
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
+  overflow-y: scroll; /* Enable vertical scrolling */
 }
 
 h1 {
@@ -75,7 +88,7 @@ form {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 40px 50px; /* Updated padding value */
+  padding: 40px 50px;
   height: 100%;
   text-align: center;
 }
