@@ -4,6 +4,7 @@ import "./userlist.css";
 
 function UserList() {
   const [users, setUsers] = useState([]);
+  const [updatedUser, setUpdatedUser] = useState({ name: "", email: "" });
 
   useEffect(() => {
     fetchUsers();
@@ -18,24 +19,22 @@ function UserList() {
     }
   };
 
-  const handleEdit = (userId) => {
-    console.log("Edit user:", userId);
-    console.log(userId.id);
-    // Add logic to navigate to the edit page for the user with the specified userId
+  const handleEdit = async (userId) => {
+    try {
+      await axios.put(
+        `http://localhost:3001/auth/updateuser/${userId}`,
+        updatedUser
+      );
+      fetchUsers(); // Refresh the user list after update
+    } catch (error) {
+      console.log("Error updating user:", error);
+    }
   };
 
   const handleDelete = async (userId) => {
-    console.log(userId);
     try {
-      if (userId) {
-        await axios.delete(`http://localhost:3001/auth/deleteuser${userId}`);
-        setUsers((prevUsers) =>
-          prevUsers.filter((user) => user._id !== userId)
-        );
-        console.log("User deleted successfully");
-      } else {
-        console.log("Invalid userId");
-      }
+      await axios.delete(`http://localhost:3001/auth/deleteuser/${userId}`);
+      fetchUsers(); // Refresh the user list after deletion
     } catch (error) {
       console.log("Error deleting user:", error);
     }
@@ -55,15 +54,48 @@ function UserList() {
         <tbody>
           {users.map((user) => (
             <tr key={user._id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
               <td>
-                <button
-                  className="edit-button"
-                  onClick={() => handleEdit(user._id)}
-                >
-                  Edit
-                </button>
+                {user._id === updatedUser._id ? (
+                  <input
+                    type="text"
+                    value={updatedUser.name}
+                    onChange={(e) =>
+                      setUpdatedUser({ ...updatedUser, name: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.name
+                )}
+              </td>
+              <td>
+                {user._id === updatedUser._id ? (
+                  <input
+                    type="email"
+                    value={updatedUser.email}
+                    onChange={(e) =>
+                      setUpdatedUser({ ...updatedUser, email: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.email
+                )}
+              </td>
+              <td>
+                {user._id === updatedUser._id ? (
+                  <button
+                    className="edit-button"
+                    onClick={() => handleEdit(user._id)}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    className="edit-button"
+                    onClick={() => setUpdatedUser(user)}
+                  >
+                    Edit
+                  </button>
+                )}
                 <button
                   className="delete-button"
                   onClick={() => handleDelete(user._id)}
