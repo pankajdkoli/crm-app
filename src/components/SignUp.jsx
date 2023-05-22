@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LogIn from "./LogIn";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "./signUp.css"; // Import your custom CSS file
 
 function SignUp() {
@@ -12,7 +12,7 @@ function SignUp() {
   const handleSignInClick = () => setSignUpActive(false);
   const handleChange = (e, setState) => setState(e.target.value);
 
-  const navigate = useNavigate(); // Access the history object for navigation
+  // const navigate = useNavigate(); // Access the history object for navigation
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,7 +36,7 @@ function SignUp() {
         setRegistrationMessage("Registration successful! You can now sign in.");
 
         // Redirect to the sign-in page after successful registration
-        navigate("/login");
+        // navigate("/login");
       } else {
         console.log("Registration failed: No response data");
         throw new Error("Registration failed");
