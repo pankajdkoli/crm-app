@@ -5,25 +5,28 @@ Navbar.css body {
   color: #333333;
 }
 body {
-  background: #8a69ad;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* background: #8a69ad; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
   flex-direction: column;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
 }
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
+  background-color: #333;
+
   font-family: "Montserrat", sans-serif;
   border-radius: 10px;
 }
 
 .logo {
   font-weight: bold;
+  color: lavender;
 }
 
 .menu {
@@ -40,7 +43,7 @@ body {
 
 .menu a {
   text-decoration: none;
-  color: #c234bd;
+  color: lavender;
   padding: 5px;
   transition: background-color 0.3s ease;
   font-size: 17px;

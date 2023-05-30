@@ -18,14 +18,15 @@
   color: green;
 }
 
-body {
+.container {
   background: #8a7c98;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
   overflow-y: scroll; /* Enable vertical scrolling */
+  margin: auto;
 }
 
 h1 {
