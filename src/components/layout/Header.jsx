@@ -4,7 +4,7 @@ import "./header.css";
 function Header() {
   return (
     <header className="header">
-      <div className="logo">CRM-App-Logo</div>
+      <div className="logo">Global Vision-Tech</div>
       <nav>
         <ul className="menu">
           <Link to="/">
@@ -13,14 +13,19 @@ function Header() {
             </li>
           </Link>
 
-          <li>
-            <a href="#contact">Contact</a>
-          </li>
+          <Link to="/contact">
+            <li>
+              <a href="#contact">Contact</a>
+            </li>
+          </Link>
 
           <Link to="/admin">
             <li>
               <a href="#services">Admin</a>
             </li>
+            {/* <a>
+              <i class="fa-light fa-user"></i>{" "}
+            </a> */}
           </Link>
         </ul>
       </nav>

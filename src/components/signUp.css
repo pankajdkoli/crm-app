@@ -68,6 +68,7 @@ button {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+  cursor: pointer;
 }
 
 button:active {
@@ -174,9 +175,9 @@ input {
 }
 
 .overlay {
-  background: #ff416c;
-  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  background: #5fc3d5;
+  background: -webkit-linear-gradient(to right, #705e5b, #5bc3bf);
+  background: linear-gradient(to right, #705e5b, #5bc3bf);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;

@@ -66,7 +66,7 @@ function SignUp() {
                 <i className="fab fa-google-plus-g"></i>
               </a>
               <a href="/" className="social">
-                <i className="fab fa-linkedin-in"></i>
+                <i className="fa-brands fa-linkedin"></i>
               </a>
             </div>
             <span>or use your email for registration</span>
